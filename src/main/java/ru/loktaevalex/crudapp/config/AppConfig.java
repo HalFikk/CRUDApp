@@ -13,6 +13,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -25,12 +26,14 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
+@EnableWebMvc
 @ComponentScan(value = "ru.loktaevalex.crudapp")
 public class AppConfig implements WebMvcConfigurer {
     @Autowired
     private Environment env;
     private final ApplicationContext applicationContext;
 
+    @Autowired
     public AppConfig(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
