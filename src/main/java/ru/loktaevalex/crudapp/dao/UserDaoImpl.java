@@ -5,6 +5,7 @@ import ru.loktaevalex.crudapp.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDAO {
@@ -13,22 +14,22 @@ public class UserDaoImpl implements UserDAO {
     private EntityManager entityManager;
 
     @Override
-    public void saveUser(User user) {
-        entityManager.getEntityManagerFactory().createEntityManager().contains(user);
+    public List<User> getAllUser() {
+        return entityManager.createQuery("select u from User u", User.class).getResultList();
     }
 
     @Override
-    public void deleteUser(int id) {
+    public void saveUser(User user) {
+        entityManager.persist(user);
+    }
 
+    @Override
+    public void deleteUser(User user) {
+        entityManager.remove(user);
     }
 
     @Override
     public void updateUser(User user) {
-
-    }
-
-    @Override
-    public void getUser(int id) {
-
+        entityManager.refresh(user);
     }
 }
