@@ -44,6 +44,7 @@ public class AppConfig implements WebMvcConfigurer {
         templateResolver.setApplicationContext(applicationContext);
         templateResolver.setPrefix("/WEB-INF/view/");
         templateResolver.setSuffix(".html");
+        templateResolver.setCharacterEncoding("UTF-8");
         return templateResolver;
     }
 
@@ -60,6 +61,7 @@ public class AppConfig implements WebMvcConfigurer {
     public void configureViewResolvers(ViewResolverRegistry registry) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine());
+        resolver.setCharacterEncoding("UTF-8");
         registry.viewResolver(resolver);
     }
 
@@ -83,6 +85,11 @@ public class AppConfig implements WebMvcConfigurer {
         Properties props = new Properties();
         props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        props.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
+        props.put("hibernate.c3p0.min_size", env.getProperty("hibernate.c3p0.min_size"));
+        props.put("hibernate.c3p0.max_size", env.getProperty("hibernate.c3p0.max_size"));
+        props.put("hibernate.c3p0.acquire_increment", env.getProperty("hibernate.c3p0.acquire_increment"));
+        props.put("hibernate.c3p0.timeout", env.getProperty("hibernate.c3p0.timeout"));
 
         entityManager.setJpaProperties(props);
         entityManager.setPackagesToScan(env.getRequiredProperty("db.entity"));
