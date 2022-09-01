@@ -25,18 +25,14 @@ public class UserDaoImpl implements UserDAO {
 
     @Override
     public void deleteUser(long id) {
-        User deleteUser = (User)entityManager.createQuery("select u from User u where u.id= :id")
-                .setParameter("id", id).getSingleResult();;
+        /*User deleteUser = (User)entityManager.createQuery("select u from User u where u.id= :id")
+                .setParameter("id", id).getSingleResult();*/
+        User deleteUser = entityManager.find(User.class, id);
         entityManager.remove(deleteUser);
     }
 
     @Override
     public void updateUser(long id, User user) {
-        User userBefore = (User)entityManager.createQuery("select u from User u where u.id= :id")
-                .setParameter("id", id).getSingleResult();
-        userBefore.setName(user.getName());
-        userBefore.setSurname(user.getSurname());
-        user.setAge(user.getAge());
         entityManager.merge(user);
     }
 

@@ -25,6 +25,7 @@
         <td th:text="${user.getAge()}"/>
         <td>
             <a th:href="@{/update/{id}(id=${user.getId()})}">Редактировать</a>
+            <a th:href="@{/update/{id}(id=${user.getId()})}">Редактировать</a>
             <a th:href="@{/delete/{id}(id=${user.getId()})}">Удалить</a>
         </td>
 
